@@ -19,3 +19,17 @@ function changeImage(index) {
 //     img.setAttribute("src", imageSrc);
 //   });
 // }
+
+// Classes
+// adding
+// removing
+// contains
+// toggle
+
+// id
+// .id
+
+// Attributes
+// getAttribute("href")
+// setAttrubute("src", "value")
+// removeAttribute("alt")
