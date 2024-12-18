@@ -1,0 +1,41 @@
+/* refreshing/resetting/rebooting the css */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.parent {
+  background: #000;
+  color: white;
+}
+
+/* 
+descendant combinator  (space)
+ 
+.parent p {
+  color: burlywood;
+} 
+*/
+
+/* child combinator ( > ) */
+.parent > p {
+  font-size: 30px;
+}
+
+/* next sibling combinator ( + ) */
+
+p + div {
+  background-color: bisque;
+  height: 20vh;
+  color: white;
+  font-size: 28px;
+}
+
+/* General sibling combinator ( ~ ) */
+.parent ~ div {
+  height: 20vh;
+  width: 20vw;
+  background-color: aqua;
+  margin-top: 20px;
+}
