@@ -1,0 +1,22 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* css variables --> custom properties */
+
+:root {
+  --primary-bg-color: rgb(255, 255, 255);
+  --primary-text-color: black;
+}
+
+:root.dark {
+  --primary-bg-color: rgb(88, 88, 88);
+  --primary-text-color: #fff;
+}
+
+div {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  height: 100vh;
+}

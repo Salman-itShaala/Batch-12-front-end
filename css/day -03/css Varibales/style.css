@@ -1,0 +1,26 @@
+/* for custom fonts */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/* css variables --> custom properties */
+
+:root {
+  --primary-bg-color: white;
+  --primary-text-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-bg-color: black;
+    --primary-text-color: #fff;
+  }
+}
+
+div {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+  height: 100vh;
+}
