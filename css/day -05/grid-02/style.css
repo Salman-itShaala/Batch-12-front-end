@@ -1,0 +1,55 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  gap: 20px;
+  justify-content: center;
+}
+
+.child {
+  background-color: blueviolet;
+  height: 350px;
+  border-radius: 10px;
+}
+
+@media screen and (width <= 600px) {
+  .container {
+    grid-template-columns: 100%;
+  }
+}
+
+/* 
+same thing using flex
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  gap: 20px;
+}
+
+.child {
+  background-color: blueviolet;
+  height: 100%;
+  width: 50%;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+  .child {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+*/
