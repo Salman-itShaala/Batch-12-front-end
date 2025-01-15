@@ -12,25 +12,11 @@ function sendReq() {
 
 // async and await
 
-const myOl = document.getElementById("my-ol");
-
-async function sendReq2() {
-  const res = await fetch("https://dummyjson.com/users");
+async function getUsers() {
+  const res = await fetch("api");
+  // const data = axios.get("api")
 
   const data = await res.json();
 
-  // obj --> {users : [], .... }
-  //const users = data.users;
-  const { users } = data;
-
-  console.log(users);
-
-  users.forEach((element) => {
-    const li = document.createElement("li");
-    li.innerHTML = element.firstName;
-
-    li.classList.add("my-li");
-
-    myOl.append(li);
-  });
+  console.log(data);
 }
