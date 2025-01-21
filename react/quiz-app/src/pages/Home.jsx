@@ -1,7 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  return <div>Home</div>;
+  const { quizes } = useSelector((state) => state.quiz);
+  return (
+    <div className="min-h-screen bg-slate-300">
+      {quizes.map((q) => {
+        return <li key={q.id}>{q.title}</li>;
+      })}
+    </div>
+  );
 };
 
 export default Home;
