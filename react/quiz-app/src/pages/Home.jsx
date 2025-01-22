@@ -17,11 +17,11 @@ const Home = () => {
             <Link
               to={`quiz-page/${q.quizId}`}
               key={q.quizId}
-              className="flex flex-col justify-center text-center items-center p-8 border border-slate-600 rounded-xl"
+              className="flex flex-col justify-center text-center items-center p-8 border border-slate-600 hover:bg-slate-400 transition-colors duration-300 rounded-xl"
             >
               <img src={imgUrl} className="w-40" />
-              <p>{q.title}</p>
-              <p>{q.description}</p>
+              <p className="font-semibold">{q.title}</p>
+              <p className="text-sm">{q.description}</p>
             </Link>
           );
         })}
