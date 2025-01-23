@@ -16,16 +16,25 @@ const QuizPage = () => {
   function handleSubmit() {
     let marks = 0;
 
-    // calculate all the marks
+    let finalArray = [];
 
-    for (let i = 0; i < 10; i++) {
-      if (answers[i].optionId === quiz.questions[i].correctAnswer) {
-        marks++;
-      }
+    for (let i = 0; i < answers.length; i++) {
+      // answers[i].questionId --> questionId
+      const newArray = quiz.questions.filter((q) => {
+        if (
+          q.questionId === answers[i].questionId &&
+          q.correctAnswer === answers[i].optionId
+        ) {
+          marks++;
+          return true;
+        }
+      });
+
+      finalArray = [...finalArray, ...newArray];
     }
 
-    alert(marks);
     // marks = updated marks
+    console.log(marks, finalArray);
   }
 
   return (
@@ -58,6 +67,38 @@ const QuizPage = () => {
 };
 
 function QuestionCard({ question, setAnswers }) {
+  function handleOptionChange(e) {
+    setAnswers((prev) => {
+      // questionId, optionId
+
+      const existingElement = prev.find((answer) => {
+        return answer.questionId === question.questionId;
+      });
+
+      if (existingElement) {
+        // update
+        const newArray = prev.filter((answer) => {
+          if (answer.questionId === question.questionId) {
+            answer.optionId = e.target.value;
+          }
+
+          return true;
+        });
+
+        return newArray;
+      } else {
+        // directly add
+        return [
+          ...prev,
+          {
+            questionId: question.questionId,
+            optionId: e.target.value,
+          },
+        ];
+      }
+    });
+  }
+
   return (
     <div>
       <p>{question.question}</p>
@@ -69,15 +110,7 @@ function QuestionCard({ question, setAnswers }) {
               name={question.questionId}
               id={question.question}
               value={option.optionId}
-              onChange={(e) =>
-                setAnswers((prev) => [
-                  ...prev,
-                  {
-                    questionId: question.questionId,
-                    optionId: e.target.value,
-                  },
-                ])
-              }
+              onChange={(e) => handleOptionChange(e)}
             />
             <label htmlFor={question.question}>{option.answer}</label>
           </div>
