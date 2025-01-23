@@ -3,19 +3,35 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Divider from "@mui/material/Divider";
 import { Button } from "@mui/material";
+import QuestionCard from "../components/AnswerCard";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const QuizPage = () => {
   const { quizId } = useParams();
-
   const quizData = useSelector((state) => state.quiz);
+  const { answers } = useSelector((state) => state.answer);
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const [marks, setMarks] = useState(0);
 
   const [quiz] = quizData.quizes.filter((quiz) => quiz.quizId === quizId);
 
-  const [answers, setAnswers] = useState([]); // [{questionId , answerId}]
-
   function handleSubmit() {
-    let marks = 0;
-
     let finalArray = [];
 
     for (let i = 0; i < answers.length; i++) {
@@ -25,7 +41,7 @@ const QuizPage = () => {
           q.questionId === answers[i].questionId &&
           q.correctAnswer === answers[i].optionId
         ) {
-          marks++;
+          setMarks(marks + 1);
           return true;
         }
       });
@@ -35,6 +51,8 @@ const QuizPage = () => {
 
     // marks = updated marks
     console.log(marks, finalArray);
+
+    setOpen(true);
   }
 
   return (
@@ -47,7 +65,7 @@ const QuizPage = () => {
           return (
             <div className="flex gap-4" key={question.questionId}>
               <span>Q. {index + 1}</span>
-              <QuestionCard question={question} setAnswers={setAnswers} />
+              <QuestionCard question={question} />
             </div>
           );
         })}
@@ -61,63 +79,27 @@ const QuizPage = () => {
         >
           Submit
         </Button>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Result for your quiz is:
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              You got: {marks * 2} / 20
+            </Typography>
+          </Box>
+        </Modal>
       </div>
     </div>
   );
 };
 
-function QuestionCard({ question, setAnswers }) {
-  function handleOptionChange(e) {
-    setAnswers((prev) => {
-      // questionId, optionId
-
-      const existingElement = prev.find((answer) => {
-        return answer.questionId === question.questionId;
-      });
-
-      if (existingElement) {
-        // update
-        const newArray = prev.filter((answer) => {
-          if (answer.questionId === question.questionId) {
-            answer.optionId = e.target.value;
-          }
-
-          return true;
-        });
-
-        return newArray;
-      } else {
-        // directly add
-        return [
-          ...prev,
-          {
-            questionId: question.questionId,
-            optionId: e.target.value,
-          },
-        ];
-      }
-    });
-  }
-
-  return (
-    <div>
-      <p>{question.question}</p>
-      {question.options.map((option) => {
-        return (
-          <div className="flex gap-4" key={option.optionId}>
-            <input
-              type="radio"
-              name={question.questionId}
-              id={question.question}
-              value={option.optionId}
-              onChange={(e) => handleOptionChange(e)}
-            />
-            <label htmlFor={question.question}>{option.answer}</label>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+function ResultCard() {}
 
 export default QuizPage;
