@@ -8,7 +8,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="quiz-page/:quizId" element={<QuizPage />} />
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

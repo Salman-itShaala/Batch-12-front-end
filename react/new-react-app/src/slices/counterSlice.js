@@ -2,19 +2,26 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
+// createAsyncThunk
+
 const counterSlice = createSlice({
   name: "counter",
-  initialState: 0,
+  initialState: {
+    value: 0,
+  },
   reducers: {
     increment: (state) => {
-      return state + 1;
+      state.value = state.value + 1;
     },
     decrement: (state) => {
-      return state - 1;
+      state.value = state.value - 1;
+    },
+    changeByValue: (state, action) => {
+      state.value = state.value + action.payload;
     },
   },
 });
 
 export const counterReducer = counterSlice.reducer;
 
-export const { increment, decrement } = counterSlice.actions;
+export const { increment, decrement, changeByValue } = counterSlice.actions;

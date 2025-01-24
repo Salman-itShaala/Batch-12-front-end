@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import { decrement, increment } from "./slices/counterSlice";
+import { changeByValue, decrement, increment } from "./slices/counterSlice";
 
 function App() {
   return (
@@ -12,13 +12,13 @@ function App() {
 }
 
 function ShowCounter() {
-  const counter = useSelector((state) => state.counter);
+  const { value } = useSelector((state) => state.counter);
 
-  console.log(counter); // {value : 0}
+  // console.log(counterState.value); // {value : 0}
 
   return (
     <>
-      <h1>Hii there {counter}</h1>
+      <h1>Hii there {value}</h1>
     </>
   );
 }
@@ -34,7 +34,9 @@ function Buttons() {
     <>
       <button onClick={() => handleButtonClick()}>Increment</button>
 
-      <button onClick={() => dispatch(decrement())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+
+      <button onClick={() => dispatch(changeByValue(5))}>Increse by 5</button>
     </>
   );
 }
